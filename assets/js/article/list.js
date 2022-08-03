@@ -5,10 +5,10 @@ $(function () {
     // const laypage = layui.laypage
     // 添加默认列表的数据
     var q = {
-        pagenum: 2,
-        pagesize: 20,
+        pagenum: 1,
+        pagesize: 2,
         cate_id: '',
-        state: '已发布'
+        state: ''
     }
     // 获取文章列表
     function getList() {
@@ -20,9 +20,12 @@ $(function () {
                 if (res.status !== 0) {
                     return layer.msg(res.message)
                 }
+                console.log(res.data);
                 // 使用模板引擎渲染页面的数据
-                var htmlStr = template('tpl-table', res)
+                const htmlStr = template('tpl-table', res)
                 $('tbody').html(htmlStr)
+
+                form.render()
                 // 调用渲染分页的方法
                 renderPage(res.total)
             }
@@ -72,6 +75,7 @@ $(function () {
     // 为筛选表单绑定 submit 事件：
     $('#form-search').on('submit', function (e) {
         e.preventDefault()
+
         // 获取表单中选中项的值
         var cate_id = $('[name=cate_id]').val()
         var state = $('[name=state]').val()
@@ -79,7 +83,7 @@ $(function () {
         q.cate_id = cate_id
         q.state = state
         // 根据最新的筛选条件，重新渲染表格的数据
-        initTable()
+        getList()
     })
     // 定义渲染分页的方法
     function renderPage(total) {
@@ -96,8 +100,8 @@ $(function () {
                 // 可以通过 first 的值，来判断是通过哪种方式，触发的 jump 回调
                 // 如果 first 的值为 true，证明是方式2触发的
                 // 否则就是方式1触发的
-                console.log(first)
-                console.log(obj.curr)
+                // console.log(first)
+                // console.log(obj.curr)
                 // 把最新的页码值，赋值到 q 这个查询参数对象中
                 q.pagenum = obj.curr
                 // 根据最新的 q 获取对应的数据列表，并渲染表格
@@ -113,6 +117,8 @@ $(function () {
     }
 
     $('tbody').on('click', '.btn-delete', function () {
+        // 获取删除按钮的个数
+        var len = $('.btn-delete').length
         // 获取到文章的 id
         var id = $(this).attr('data-id')
         // 询问用户是否要删除数据
