@@ -1,8 +1,6 @@
+var layer = layui.layer
+var form = layui.form
 $(function () {
-    var layer = layui.layer
-    var form = layui.form
-
-
     // 初始化富文本编辑器
     initEditor()
     // 1. 初始化图片裁剪器
@@ -107,7 +105,11 @@ $(function () {
                     return layer.msg(res.message)
                 }
                 layer.msg('发布文章成功！')
+                location.href = '/article/article_list.html'
             }
         })
     }
-})
+
+
+});
+
