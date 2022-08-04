@@ -116,6 +116,7 @@ $(function () {
 
     }
 
+    // 删除按钮
     $('tbody').on('click', '.btn-delete', function () {
         // 获取删除按钮的个数
         var len = $('.btn-delete').length
@@ -147,4 +148,7 @@ $(function () {
             layer.close(index)
         })
     })
+
+
+
 })
