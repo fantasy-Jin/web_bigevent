@@ -29,9 +29,17 @@ const experssJWT = require('express-jwt')
 
 // 使用 unless排除 /api 接口不用 token 认证
 app.use(experssJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }))
+
 // 导入注册登录路由模块
 const userRouter = require('./router/user')
 app.use('/api', userRouter)
+
+
+// 导入个人信息路由
+const userinfoRouter = require('./router/userinfo')
+app.use('/my', userinfoRouter)
+
+
 
 // 错误中间件
 app.use(function (err, req, res, next) {
@@ -42,6 +50,7 @@ app.use(function (err, req, res, next) {
     // 未知错误
     res.cc(err)
 })
+
 // 启动服务器
 app.listen(3007, function () {
     console.log('api server running at http://127.0.0.1:3007');
