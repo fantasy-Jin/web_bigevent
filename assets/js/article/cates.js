@@ -61,7 +61,9 @@ $(function () {
                 if (res.status !== 0) {
                     return layer.msg('获取文章分类数据失败！')
                 }
+                // res.data.Id = res.data.id
                 form.val('form-edit', res.data)
+
             }
         })
 
@@ -74,6 +76,7 @@ $(function () {
                 data: $('.editForm').serialize(),
                 success: res => {
                     if (res.status !== 0) {
+                        // console.log($('.editForm').serialize());
                         return layer.msg('更新分类信息失败')
                     }
                     layer.msg('更新分类信息成功')

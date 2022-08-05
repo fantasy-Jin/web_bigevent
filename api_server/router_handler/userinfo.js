@@ -68,6 +68,6 @@ exports.updateAvatar = (req, res) => {
     db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
         if (err) { return res.cc(err) }
         if (results.affectedRows !== 1) { return res.cc('更新头像失败') }
-        return res.cc('更新头像成功')
+        return res.cc('更新头像成功', 0)
     })
 }

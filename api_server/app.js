@@ -39,7 +39,16 @@ app.use('/api', userRouter)
 const userinfoRouter = require('./router/userinfo')
 app.use('/my', userinfoRouter)
 
+// 导入文章分类模块
+const artCateRouter = require('./router/artcate')
+app.use('/my/article', artCateRouter)
 
+
+// 文章管理
+const articleRouter = require('./router/article')
+app.use('/my/article', articleRouter)
+// 托管静态资源文件
+app.use('/uploads', express.static('./uploads'))
 
 // 错误中间件
 app.use(function (err, req, res, next) {
